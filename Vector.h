@@ -1,5 +1,5 @@
 //Vector.h
-//Using git for version management
+//Using git for version control
 
 #ifndef VECTOR_H
 #define VECTOR_H
@@ -16,7 +16,7 @@ using namespace std;
 	 * @class Vector
 	 * @brief  A template class to hold a dynamic array
 	 *
-	 *  This class holds information in a dynamic array for a set of variables
+	 *  This class holds information in a dynamic array for a set of variables.
 	 *
 	 * @author Wade Davidson
 	 * @version 01
@@ -30,8 +30,11 @@ using namespace std;
 	 * @version 03
 	 * @date 10/04/2018 Wade Davidson, added GetLength() and SetLength() and add TestPlan. Tested.
 	 *
+	 * @author Wade Davidson
+	 * @version 04
+	 * @date 10/04/2018 Wade Davidson, added constructor with size paramter. Tested.
 	 *
-	 * @todo Test constructor and create Testplan.
+	 * @todo copy constructor
 	 *
 	 * @bug None yet...
 	 */
@@ -43,6 +46,19 @@ class Vector
     public:
         Vector(){Clear();}
         ~Vector(){Clear();}
+            /**
+            * @brief  Constructor with size parameter
+            *
+            * Creates an array of size initSize
+            * Checks if initSize is greater than 0, if not than m_arrySize is set to 0
+            * and Clear() is run.
+            *
+            * @param  initSize size of array to be created.
+            * @return void
+            * @pre initSize must be non-zero otherwise Clear() is run.
+            * @post an array of size initSize is created and m_arraySize is set to initSize.
+            */
+        Vector(const int initSize);
             /**
             * @brief  Deletes dynamic memory and clears variables
             *
@@ -91,6 +107,21 @@ void Vector<T>::Clear()
     }
 
     m_theArray = NULL;
+}
+
+template <class T>
+Vector<T>::Vector(int const initSize)
+{
+    if(initSize <= 0)
+    {
+        Clear();
+    }
+    else
+    {
+        m_arraySize = initSize;
+        m_arrayLength = 0;
+        m_theArray = new T[initSize];
+    }
 }
 
 template <class T>
