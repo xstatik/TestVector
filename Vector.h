@@ -35,10 +35,14 @@ using namespace std;
 	 * @date 10/04/2018 Wade Davidson, added constructor with size paramter. Tested.
 	 *
 	 * @author Wade Davidson
-	 * @version 04
+	 * @version 05
 	 * @date 10/04/2018 Wade Davidson, added copy constructor. Tested.
 	 *
-	 * @todo copy constructor
+	 * @author Wade Davidson
+	 * @version 06
+	 * @date 10/04/2018 Wade Davidson, added SetArray and GetArray and tested. Changed copy constructor.
+	 *
+	 * @todo add Copy() and fix copy constructor
 	 *
 	 * @bug None yet...
 	 */
@@ -65,7 +69,7 @@ class Vector
             /**
             * @brief  Copy Constructor
             *
-            * Creates a copy of newVec.
+            * Calls Copy()
             *
             * @param  newVec array to be copied.
             */
@@ -79,6 +83,39 @@ class Vector
             * @return void
             */
         void Clear();
+            /**
+            * @brief  Sets array and returns true if successful.
+            *
+            * Creates dynamic array
+            * Copies array newVec
+            * Checks if m_theArray is NULL
+            * Checks for available heap memory
+            *
+            * @param  newT the array to be saved
+            * @param arraySize size of array to be copied.
+            * @pre m_theArray must be NULL, and enough heap memory must be available to return true
+            * @post an array the same as newT is created.
+            */
+        bool SetArray(const T newT[], const int arraySize);
+            /**
+            * @brief  Copies m_theArray and retruns a pointer to it.
+            *
+            * Creates a copy of the m_theArray variable and returns a pointer to it.
+            *
+            * @post an array the same as m_theArray is created and a pointer to it returned.
+            */
+        T* GetArray();
+            /**
+            * @brief  Copies another Vector Object.
+            *
+            * Calls Set
+            * Checks if newVec.m_theArray is NULL and if newVec.m_arrayLength > 0
+            *
+            * @param  newVec
+            * @pre new.Vec.m_theArray must not be NULL, and newVec.arrayLength > 0 to return true
+            * @post an array the same as newVec is created.
+            */
+        bool Copy(const Vector<T> &newVec);
             /**
             * @brief  Retrieves the size of the array.
             *
@@ -114,14 +151,14 @@ void Vector<T>::Clear()
 
     if(m_theArray != NULL)
     {
-        delete m_theArray;
+        delete [] m_theArray;
     }
 
     m_theArray = NULL;
 }
 
 template <class T>
-Vector<T>::Vector(int const initSize)
+Vector<T>::Vector(const int initSize)
 {
     if(initSize <= 0)
     {
@@ -134,21 +171,74 @@ Vector<T>::Vector(int const initSize)
         m_theArray = new T[initSize];
     }
 }
-
+/*
 template <class T>
 Vector<T>::Vector(const Vector<T> &newVec)
 {
-    if(newVec.GetSize() == 0)
+    if(!Copy(newVec))
     {
         Clear();
     }
-    else
+}
+*/
+template <class T>
+bool Vector<T>::SetArray(const T newT[], const int arraySize)
+{
+    if(m_theArray == NULL)
     {
-        m_arrayLength = newVec.m_arrayLength;
-        m_arraySize = newVec.m_arraySize;
+        m_arraySize = arraySize;
         m_theArray = new T(m_arraySize);
     }
 
+    if(m_theArray == NULL)
+    {
+        return false;
+    }
+    else
+    {
+        for(int i = 0; i < m_arraySize; i++)
+        {
+            m_theArray[i] = newT[i];
+            m_arrayLength++;
+        }
+
+        return true;
+    }
+}
+
+template <class T>
+T* Vector<T>::GetArray()
+{
+    T *newT = NULL;
+
+    newT = new T(m_arraySize);
+
+
+    if(newT == NULL)
+    {
+        return newT;
+    }
+    else
+    {
+        for(int i = 0; i < m_arraySize; i++)
+        {
+            newT[i] = m_theArray[i];
+        }
+    }
+    return newT;
+}
+
+template <class T>
+bool Vector<T>::Copy(const Vector<T> &newVec)
+{
+    if(newVec.m_arraySize != NULL && newVec.m_arrayLength > 0)
+    {
+        return Set(newVec.GetArray);
+    }
+    else
+    {
+        return false;
+    }
 }
 
 template <class T>
