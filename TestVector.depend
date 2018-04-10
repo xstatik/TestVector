@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1523366142 source:c:\codeblocks\#ict283\week06\week06\testvector\main.cpp
+	"Vector.h"
+	<iostream>
+
+1523366527 c:\codeblocks\#ict283\week06\week06\testvector\vector.h
+	<iostream>
+

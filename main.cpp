@@ -1,9 +1,10 @@
+#include "Vector.h"
 #include <iostream>
 
 using namespace std;
 
 int main()
 {
-    cout << "Hello world!" << endl;
+    Vector<int> intVec;
     return 0;
 }
