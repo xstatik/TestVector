@@ -26,6 +26,10 @@ using namespace std;
 	 * @version 02
 	 * @date 10/04/2018 Wade Davidson, added variables, constructor deconstructor and Clear function.
 	 *
+	 * @author Wade Davidson
+	 * @version 03
+	 * @date 10/04/2018 Wade Davidson, added GetLength() and SetLength() and add TestPlan. Tested.
+	 *
 	 *
 	 * @todo Test constructor and create Testplan.
 	 *
@@ -48,12 +52,28 @@ class Vector
             * @return void
             */
         void Clear();
+            /**
+            * @brief  Retrieves the size of the array.
+            *
+            * Returns m_arraySize
+            *
+            * @return int
+            */
+        int GetSize() const;
+        /**
+            * @brief  Retrieves the length of the array.
+            *
+            * Returns m_arrayLength
+            *
+            * @return int
+            */
+        int GetLength() const;
 
     private:
-            ///unsigned int to hold the size of the array.
-        unsigned m_arraySize;
-            ///unsigned int to hold the current length of the array.
-        unsigned m_arrayLength;
+            ///int to hold the size of the array.
+        int m_arraySize;
+            ///int to hold the current length of the array.
+        int m_arrayLength;
             ///T pointer to hold the base address of the array.
         T *m_theArray;
 
@@ -73,6 +93,16 @@ void Vector<T>::Clear()
     m_theArray = NULL;
 }
 
+template <class T>
+int Vector<T>::GetSize() const
+{
+    return m_arraySize;
+}
 
+template <class T>
+int Vector<T>::GetLength() const
+{
+    return m_arrayLength;
+}
 
 #endif // VECTOR_H
