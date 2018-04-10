@@ -34,6 +34,10 @@ using namespace std;
 	 * @version 04
 	 * @date 10/04/2018 Wade Davidson, added constructor with size paramter. Tested.
 	 *
+	 * @author Wade Davidson
+	 * @version 04
+	 * @date 10/04/2018 Wade Davidson, added copy constructor. Tested.
+	 *
 	 * @todo copy constructor
 	 *
 	 * @bug None yet...
@@ -54,11 +58,18 @@ class Vector
             * and Clear() is run.
             *
             * @param  initSize size of array to be created.
-            * @return void
             * @pre initSize must be non-zero otherwise Clear() is run.
             * @post an array of size initSize is created and m_arraySize is set to initSize.
             */
         Vector(const int initSize);
+            /**
+            * @brief  Copy Constructor
+            *
+            * Creates a copy of newVec.
+            *
+            * @param  newVec array to be copied.
+            */
+        Vector(const Vector<T> &newVec);
             /**
             * @brief  Deletes dynamic memory and clears variables
             *
@@ -122,6 +133,22 @@ Vector<T>::Vector(int const initSize)
         m_arrayLength = 0;
         m_theArray = new T[initSize];
     }
+}
+
+template <class T>
+Vector<T>::Vector(const Vector<T> &newVec)
+{
+    if(newVec.GetSize() == 0)
+    {
+        Clear();
+    }
+    else
+    {
+        m_arrayLength = newVec.m_arrayLength;
+        m_arraySize = newVec.m_arraySize;
+        m_theArray = new T(m_arraySize);
+    }
+
 }
 
 template <class T>
