@@ -12,6 +12,7 @@ void Test06();
 void Test07();
 void Test08();
 void Test09();
+void Test10();
 
 int main()
 {
@@ -24,6 +25,7 @@ int main()
     Test07();
     Test08();
     Test09();
+    Test10();
 
     return 0;
 }
@@ -127,7 +129,7 @@ void Test08()//Test PushBack range
     testVec.print();
 }
 
-void Test09()//Test PushBack
+void Test09()//Test GetItem
 {
     cout << "----------TEST09----------" << endl;
 
@@ -140,4 +142,19 @@ void Test09()//Test PushBack
         testVec.GetItem(x, i);
         cout << x << endl;
     }
+}
+
+void Test10()//Test GetItem
+{
+    cout << "----------TEST10----------" << endl;
+
+    Vector<int> testVec(3);
+
+    for(int i = 0; i < 2; i++)
+    {
+        testVec.PushBack(i);
+    }
+
+    cout << testVec.GetLength() << endl;
+    cout << testVec.GetSize() << endl;
 }

@@ -59,8 +59,12 @@ using namespace std;
 	 * @date 11/04/2018 Wade Davidson, fixed copy constructor and constructor with size parameter. Tested.
 	 *
 	 * @author Wade Davidson
-	 * @version 11
+	 * @version 12
 	 * @date 11/04/2018 Wade Davidson, added PushBack and GetItem functions and tested.
+	 *
+	 * @author Wade Davidson
+	 * @version 13
+	 * @date 11/04/2018 Wade Davidson, added GetSize and GetLength back in and tested.
 	 *
 	 * @todo Not sure...
 	 *
@@ -150,22 +154,22 @@ class Vector
         void GetItem(T &newItem, int index) const;
 
         void print();
-
- /*        int GetSize() const;
-        /**
+            /**
+            * @brief  Retrieves the size of the array.
+            *
+            * Returns m_arraySize
+            *
+            * @return int
+            */
+        int GetSize() const;
+            /**
             * @brief  Retrieves the length of the array.
             *
             * Returns m_arrayLength
             *
             * @return int
             */
- /*        int GetLength() const;
-
-        T& operator[](int index);
-        const T& operator[](int index) const;
-*/
-
-
+        int GetLength() const;
     private:
             ///int to hold the size of the array.
         int m_arraySize;
@@ -303,13 +307,6 @@ void Vector<T>::GetItem(T &newItem, int index) const
     }
 }
 
-
-
-
-
-/*
-template <class T>
-
 template <class T>
 int Vector<T>::GetSize() const
 {
@@ -321,20 +318,5 @@ int Vector<T>::GetLength() const
 {
     return m_arrayLength;
 }
-
-template <class T>
-T& Vector<T>::operator[](int index)
-{
-    if(0 <= index && index < m_arraySize)
-        return m_theArray[index];
-}
-
-template <class T>
-const T& Vector<T>::operator[](int index) const
-{
-    if(0 <= index && index < m_arraySize)
-        return m_theArray[index];
-}
-*/
 
 #endif // VECTOR_H
