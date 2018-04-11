@@ -9,6 +9,9 @@ void Test03();
 void Test04();
 void Test05();
 void Test06();
+void Test07();
+void Test08();
+void Test09();
 
 int main()
 {
@@ -18,7 +21,9 @@ int main()
     Test04();
     Test05();
     Test06();
-
+    Test07();
+    Test08();
+    Test09();
 
     return 0;
 }
@@ -89,4 +94,50 @@ void Test06()//Test Copy constructor
     Vector<int> testVec02(testVec);
 
     testVec02.print();
+}
+
+void Test07()//Test PushBack
+{
+    cout << "----------TEST07----------" << endl;
+
+    Vector<int> testVec(3);
+
+    for(int i = 0; i < 3; i++)
+    {
+        testVec.PushBack(i);
+    }
+
+    testVec.print();
+}
+
+void Test08()//Test PushBack range
+{
+    cout << "----------TEST08----------" << endl;
+
+    Vector<int> testVec(2);
+
+    for(int i = 0; i < 4; i++)
+    {
+        if(testVec.PushBack(i))
+            cout << "Inside Range" << endl;
+        else
+            cout << "Outside Range" << endl;
+    }
+
+    testVec.print();
+}
+
+void Test09()//Test PushBack
+{
+    cout << "----------TEST09----------" << endl;
+
+    Vector<int> testVec(3);
+    int x;
+
+    for(int i = 0; i < 3; i++)
+    {
+        testVec.PushBack(i);
+        testVec.GetItem(x, i);
+        cout << x << endl;
+    }
 }
