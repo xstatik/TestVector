@@ -54,7 +54,11 @@ using namespace std;
 	 * @version 09
 	 * @date 11/04/2018 Wade Davidson, created VecCopy and tested.
 	 *
-	 * @todo everything again.
+	 * @author Wade Davidson
+	 * @version 10
+	 * @date 11/04/2018 Wade Davidson, fixed copy constructor and constructor with size parameter. Tested.
+	 *
+	 * @todo OK. Better. Next AddItem.
 	 *
 	 * @bug None yet...
 	 */
@@ -69,21 +73,20 @@ class Vector
             /**
             * @brief  Constructor with size parameter
             *
-            * Creates an array of size initSize
-            * Checks if initSize is greater than 0, if not than m_arrySize is set to 0
-            * and Clear() is run.
+            * Creates an array of size arrSize
+            * Calls SetSize()
             *
-            * @param  initSize size of array to be created.
-            * @pre initSize must be non-zero otherwise Clear() is run.
-            * @post an array of size initSize is created and m_arraySize is set to initSize.
+            * @param  arrSize size of array to be created.
+            * @pre arrSize must be non-zero
+            * @post a Vector object of size arrSize is created.
             */
-        Vector(const int initSize);
+        Vector(const int arrSize);
             /**
             * @brief  Copy Constructor
             *
-            * Calls Copy()
+            * Calls CopyVec()
             *
-            * @param  newVec array to be copied.
+            * @param  newVec object to be copied.
             */
         Vector(Vector<T> &newVec);
             /**
@@ -197,6 +200,16 @@ Vector<T>::Vector()
 }
 
 template <class T>
+Vector<T>::Vector(const int arrSize)
+{
+    m_arraySize = 0;
+    m_arrayLength = 0;
+    m_theArray = NULL;
+
+    SetSize(arrSize);
+}
+
+template <class T>
 void Vector<T>::Clear()
 {
     m_arraySize = 0;
@@ -235,6 +248,11 @@ void Vector<T>::print()
 template <class T>
 bool Vector<T>::SetSize(int arrSize)
 {
+    if(m_theArray != NULL)
+    {
+        Clear();//Clears Vector
+    }
+
     if(m_theArray == NULL && arrSize > 0)
     {
         m_arraySize = arrSize;
@@ -270,32 +288,13 @@ bool Vector<T>::CopyVec(Vector<T> &newVec)
     }
 }
 
-/*
-template <class T>
-Vector<T>::Vector(const int initSize)
-{
-    if(initSize <= 0)
-    {
-        Clear();
-    }
-    else
-    {
-        m_arraySize = initSize;
-        m_arrayLength = 0;
-        m_theArray = new T[initSize];
-    }
-}
-
 template <class T>
 Vector<T>::Vector(Vector<T> &newVec)
 {
-    if(!Copy(&newVec))
-    {
-        Clear();
-    }
-
+    CopyVec(newVec);
 }
 
+/*
 template <class T>
 bool Vector<T>::SetArray(const T *newT, const int arraySize)
 {

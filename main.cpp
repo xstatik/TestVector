@@ -16,6 +16,8 @@ int main()
     Test02();
     Test03();
     Test04();
+    Test05();
+    Test06();
 
 
     return 0;
@@ -41,7 +43,7 @@ void Test02()//Test set size
     testVec.print();
 }
 
-void Test03()//Test set size
+void Test03()//Test 0 with SetSize
 {
     cout << "----------TEST03----------" << endl;
 
@@ -55,7 +57,7 @@ void Test03()//Test set size
     testVec.print();
 }
 
-void Test04()//Test set size
+void Test04()//Test CopyVec
 {
     cout << "----------TEST04----------" << endl;
 
@@ -66,6 +68,25 @@ void Test04()//Test set size
     {
         cout << "Vector copied" << endl;
     }
+
+    testVec02.print();
+}
+
+void Test05()//Test constructor with size parameter
+{
+    cout << "----------TEST05----------" << endl;
+
+    Vector<int> testVec(11);
+
+    testVec.print();
+}
+
+void Test06()//Test Copy constructor
+{
+    cout << "----------TEST06----------" << endl;
+
+    Vector<int> testVec(17);
+    Vector<int> testVec02(testVec);
 
     testVec02.print();
 }
