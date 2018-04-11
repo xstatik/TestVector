@@ -42,9 +42,13 @@ using namespace std;
 	 * @version 06
 	 * @date 10/04/2018 Wade Davidson, added SetArray and GetArray and tested. Changed copy constructor.
 	 *
-	  @author Wade Davidson
-	 * @version 06
+	 * @author Wade Davidson
+	 * @version 07
 	 * @date 11/04/2018 Wade Davidson, cleared functions starting again. Print added to test.
+	 *
+	 * @author Wade Davidson
+	 * @version 08
+	 * @date 11/04/2018 Wade Davidson, created Setsize and tested.
 	 *
 	 * @todo everything again.
 	 *
@@ -87,6 +91,17 @@ class Vector
             * @return void
             */
         void Clear();
+            /**
+            * @brief  Creates the array the size of arrSize
+            *
+            * Creates an array of size arrSize
+            * Checks if arrSize is greater than 0, if not than it returns false
+            *
+            * @param  initSize size of array to be created.
+            * @pre arrSize must be non-zero otherwise and m_theArray must be NULL
+            * @post an array of size arrSize is created
+            */
+        bool SetSize(int arrSize);
 
         void print();
 
@@ -196,6 +211,21 @@ void Vector<T>::print()
     }
 }
 
+template <class T>
+bool Vector<T>::SetSize(int arrSize)
+{
+    if(m_theArray == NULL && arrSize > 0)
+    {
+        m_arraySize = arrSize;
+        m_theArray = new T(m_arraySize);
+    }
+
+    if(m_theArray == NULL)
+    {
+        return false;
+    }
+
+}
 
 /*
 template <class T>
