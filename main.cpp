@@ -1,5 +1,6 @@
 #include "Vector.h"
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -13,6 +14,7 @@ void Test07();
 void Test08();
 void Test09();
 void Test10();
+void Test11();
 
 int main()
 {
@@ -26,6 +28,7 @@ int main()
     Test08();
     Test09();
     Test10();
+    Test11();
 
     return 0;
 }
@@ -144,7 +147,7 @@ void Test09()//Test GetItem
     }
 }
 
-void Test10()//Test GetItem
+void Test10()//Test GetLength and GetSize
 {
     cout << "----------TEST10----------" << endl;
 
@@ -157,4 +160,20 @@ void Test10()//Test GetItem
 
     cout << testVec.GetLength() << endl;
     cout << testVec.GetSize() << endl;
+}
+
+void Test11()//Test with String
+{
+    cout << "----------TEST11----------" << endl;
+
+    Vector<string> testVec(3);
+    string testString = "String 0";
+    string emptyStr;
+
+    for(int i = 0; i < 3; i++)
+    {
+        testVec.PushBack(testString);
+        testVec.GetItem(emptyStr, i);
+        cout << emptyStr << i << endl;
+    }
 }

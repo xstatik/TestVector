@@ -66,7 +66,11 @@ using namespace std;
 	 * @version 13
 	 * @date 11/04/2018 Wade Davidson, added GetSize and GetLength back in and tested.
 	 *
-	 * @todo Not sure...
+	 * @author Wade Davidson
+	 * @version 13
+	 * @date 11/04/2018 Wade Davidson, teseted with string and added to test plan.
+	 *
+	 * @todo Remove print and add VectorUtilies and add overloaded =.
 	 *
 	 * @bug None yet...
 	 */
@@ -251,7 +255,7 @@ bool Vector<T>::SetSize(int arrSize)
     if(m_theArray == NULL && arrSize > 0)
     {
         m_arraySize = arrSize;
-        m_theArray = new T(m_arraySize);
+        m_theArray = new T[m_arraySize];
     }
 
     if(m_theArray == NULL)
