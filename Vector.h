@@ -50,6 +50,10 @@ using namespace std;
 	 * @version 08
 	 * @date 11/04/2018 Wade Davidson, created Setsize and tested.
 	 *
+	 * @author Wade Davidson
+	 * @version 09
+	 * @date 11/04/2018 Wade Davidson, created VecCopy and tested.
+	 *
 	 * @todo everything again.
 	 *
 	 * @bug None yet...
@@ -102,6 +106,19 @@ class Vector
             * @post an array of size arrSize is created
             */
         bool SetSize(int arrSize);
+            /**
+            * @brief  Copies anothe Vector
+            *
+            * Creates an array of size arrSize
+            * Checks if arrSize is greater than 0, if not than it returns false
+            * Copies elements to new Vector array if their is any
+            * Returns true if successful
+            *
+            * @param  newVec the vector to be copied
+            * @pre newVec must not be empty otherwise it will return false
+            * @post a copy of newVec is created.
+            */
+        bool CopyVec(Vector<T> &newVec);
 
         void print();
 
@@ -187,7 +204,6 @@ void Vector<T>::Clear()
 
     if(m_theArray != NULL)
     {
-        cout << "array not null" << endl;
         delete [] m_theArray;
     }
 
@@ -200,14 +216,19 @@ void Vector<T>::print()
     cout << "Length = " << m_arrayLength << endl << "Size = " << m_arraySize << endl;
     if(m_theArray != NULL)
     {
-        for(int i = 0; i < m_arrayLength; i++)
-        {
-            cout << m_theArray[i] << endl;
-        }
+        cout << "NOT NULL" << endl;
     }
     else
     {
         cout << "NULL" << endl;
+    }
+    if(m_arrayLength > 0)
+    {
+        cout << "ARRAY NOT EMPTY" << endl;
+        for(int i = 0; i < m_arrayLength; i++)
+        {
+            cout << m_theArray[i] << endl;
+        }
     }
 }
 
@@ -224,7 +245,29 @@ bool Vector<T>::SetSize(int arrSize)
     {
         return false;
     }
+    else
+    {
+        return true;
+    }
 
+}
+
+template <class T>
+bool Vector<T>::CopyVec(Vector<T> &newVec)
+{
+    if(SetSize(newVec.m_arraySize))
+    {
+        for(int i = 0; i < newVec.m_arrayLength; i++)
+        {
+            m_theArray[i] = newVec.m_theArray[i];
+        }
+
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 /*

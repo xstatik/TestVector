@@ -15,6 +15,7 @@ int main()
     Test01();
     Test02();
     Test03();
+    Test04();
 
 
     return 0;
@@ -52,4 +53,19 @@ void Test03()//Test set size
     }
 
     testVec.print();
+}
+
+void Test04()//Test set size
+{
+    cout << "----------TEST04----------" << endl;
+
+    Vector<int> testVec, testVec02;
+
+    testVec.SetSize(10);
+    if(testVec02.CopyVec(testVec))
+    {
+        cout << "Vector copied" << endl;
+    }
+
+    testVec02.print();
 }
