@@ -7,6 +7,7 @@
 //---------------------------------------------------------------------------------
 
 #include <iostream>
+#include <cassert>
 
 using namespace std;
 
@@ -70,7 +71,12 @@ using namespace std;
 	 * @version 13
 	 * @date 11/04/2018 Wade Davidson, teseted with string and added to test plan.
 	 *
-	 * @todo Remove print and add VectorUtilies and add overloaded =.
+	 * @author Wade Davidson
+	 * @version 14
+	 * @date 13/04/2018 Wade Davidson, changed to addItem and add overloaded [] operator. Tested.
+	 * @date 13/04/2018 Wade Davidson, removed GetItem. Made changes to doxygen comments
+	 *
+	 * @todo Remove print and add VectorUtilies and add overloaded = and maybe remove cassert.
 	 *
 	 * @bug None yet...
 	 */
@@ -85,95 +91,91 @@ class Vector
             /**
             * @brief  Constructor with size parameter
             *
-            * Creates an array of size arrSize
-            * Calls SetSize()
+            * Creates a Vector class object
             *
             * @param  arrSize size of array to be created.
-            * @pre arrSize must be non-zero
-            * @post a Vector object of size arrSize is created.
+            * @pre arrSize must be above zero
+            * @post a Vector object of size specified is created.
             */
         Vector(const int arrSize);
             /**
             * @brief  Copy Constructor
             *
-            * Calls CopyVec()
+            * Copies another vector
             *
-            * @param  newVec object to be copied.
+            * @param  newVec the object to be copied.
             */
         Vector(Vector<T> &newVec);
             /**
             * @brief  Deletes dynamic memory and clears variables
             *
-            * This function will delete the dynamic memrory and set m_theArray to NULL
-            * and set m_arraySize and m_arrayLength to 0.
+            * This function will delete the dynamic memrory and and clear the variables.
             *
             * @return void
             */
         void Clear();
             /**
-            * @brief  Creates the array the size of arrSize
+            * @brief  Sets the size of the Vector object
             *
-            * Creates an array of size arrSize
-            * Checks if arrSize is greater than 0, if not than it returns false
+            *Creates a Vector object of the specified size
             *
-            * @param  initSize size of array to be created.
-            * @pre arrSize must be non-zero otherwise and m_theArray must be NULL
-            * @post an array of size arrSize is created
+            * @param  arrSize size of Vector to be created.
+            * @pre arrSize must be above zero otherwise an empty Vector is created
+            * @post a Vector of size specified is created
             */
         bool SetSize(int arrSize);
             /**
-            * @brief  Copies anothe Vector
+            * @brief  Copies another Vector
             *
-            * Creates an array of size arrSize
-            * Checks if arrSize is greater than 0, if not than it returns false
-            * Copies elements to new Vector array if their is any
+            * Copies the elements of one Vector Object to another
             * Returns true if successful
             *
-            * @param  newVec the vector to be copied
+            * @param  newVec the Vector to be copied
             * @pre newVec must not be empty otherwise it will return false
-            * @post a copy of newVec is created.
+            * @post a copy of newVec is copied
             */
         bool CopyVec(Vector<T> &newVec);
             /**
             * @brief  Adds element to end of Vector
             *
-            * Sets last element to newT. Must be within the range of the Vector.
-            * Returns true if successful
+            * Adds an element to the Vector obeject and increases the size
             *
             * @param  newT element to be added.
-            * @pre list must not be full or m_theArray NULL.
+            * @pre The Vector must not be empty
             * @post newT is added to the end of the Vector.
             */
-        bool PushBack(T &newT);
-            /**
-            * @brief  Retreives element from specified index
-            *
-            * Retreives element from specified index as long as it is 0 or above and less than length
-            *
-            * @param  newItem to retrieve the item.
-            * @param  index to retrieve from
-            * @pre index must be 0 or above and less than the length
-            * @post item at index is retruned.
-            */
-        void GetItem(T &newItem, int index) const;
+        bool AddItem(const T &newT);
 
         void print();
             /**
-            * @brief  Retrieves the size of the array.
-            *
-            * Returns m_arraySize
+            * @brief  Retrieves the size of the Vector.
             *
             * @return int
             */
         int GetSize() const;
             /**
-            * @brief  Retrieves the length of the array.
-            *
-            * Returns m_arrayLength
+            * @brief  Retrieves the amount of elements stored in the array.
             *
             * @return int
             */
         int GetLength() const;
+            /**
+            * @brief  Overloaded [] operator
+            *
+            * @param  index the index of the element to access
+            * @pre must be within the length of the Vector
+            * @return T&
+            */
+        const T& operator[](int index) const;
+            /**
+            * @brief  Overloaded [] operator
+            *
+            * @param  index the index of the element to access
+            * @pre must be within the length of the Vector
+            * @return T&
+            */
+        T& operator[](int index);
+
     private:
             ///int to hold the size of the array.
         int m_arraySize;
@@ -289,7 +291,7 @@ bool Vector<T>::CopyVec(Vector<T> &newVec)
 }
 
 template <class T>
-bool Vector<T>::PushBack(T &newT)
+bool Vector<T>::AddItem(const T &newT)
 {
     if(m_arrayLength < m_arraySize && m_theArray != NULL)
     {
@@ -303,15 +305,6 @@ bool Vector<T>::PushBack(T &newT)
 }
 
 template <class T>
-void Vector<T>::GetItem(T &newItem, int index) const
-{
-    if(index >= 0 && index < m_arrayLength)
-    {
-        newItem = m_theArray[index];
-    }
-}
-
-template <class T>
 int Vector<T>::GetSize() const
 {
     return m_arraySize;
@@ -321,6 +314,22 @@ template <class T>
 int Vector<T>::GetLength() const
 {
     return m_arrayLength;
+}
+
+template <class T>
+const T& Vector<T>::operator[](int index) const
+{
+    assert(index >= 0 && index < m_arrayLength);
+
+    return m_theArray[index];
+}
+
+template <class T>
+T& Vector<T>::operator[](int index)
+{
+    assert(index >= 0 && index < m_arrayLength);
+
+    return m_theArray[index];
 }
 
 #endif // VECTOR_H
