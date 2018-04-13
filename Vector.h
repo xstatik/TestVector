@@ -76,7 +76,12 @@ using namespace std;
 	 * @date 13/04/2018 Wade Davidson, changed to addItem and add overloaded [] operator. Tested.
 	 * @date 13/04/2018 Wade Davidson, removed GetItem. Made changes to doxygen comments
 	 *
-	 * @todo Remove print and add VectorUtilies and add overloaded = and maybe remove cassert.
+	 * @author Wade Davidson
+	 * @version 15
+	 * @date 13/04/2018 Wade Davidson, added GetArray. Tested. Chaged test paln as VectorUtils.h was added.
+	 * @date 13/04/2018 Wade Davidson, print function removed.
+	 *
+	 * @todo Add overloaded = and maybe remove cassert.
 	 *
 	 * @bug None yet...
 	 */
@@ -136,6 +141,13 @@ class Vector
             */
         bool CopyVec(Vector<T> &newVec);
             /**
+            * @brief  Gets the array from the Vector object
+            *
+            * @param  newT
+            * @post a opy of the array is given
+            */
+        void GetArray(T *&newT) const;
+            /**
             * @brief  Adds element to end of Vector
             *
             * Adds an element to the Vector obeject and increases the size
@@ -145,8 +157,6 @@ class Vector
             * @post newT is added to the end of the Vector.
             */
         bool AddItem(const T &newT);
-
-        void print();
             /**
             * @brief  Retrieves the size of the Vector.
             *
@@ -225,28 +235,6 @@ void Vector<T>::Clear()
 }
 
 template <class T>
-void Vector<T>::print()
-{
-    cout << "Length = " << m_arrayLength << endl << "Size = " << m_arraySize << endl;
-    if(m_theArray != NULL)
-    {
-        cout << "NOT NULL" << endl;
-    }
-    else
-    {
-        cout << "NULL" << endl;
-    }
-    if(m_arrayLength > 0)
-    {
-        cout << "ARRAY NOT EMPTY" << endl;
-        for(int i = 0; i < m_arrayLength; i++)
-        {
-            cout << m_theArray[i] << endl;
-        }
-    }
-}
-
-template <class T>
 bool Vector<T>::SetSize(int arrSize)
 {
     if(m_theArray != NULL)
@@ -287,6 +275,22 @@ bool Vector<T>::CopyVec(Vector<T> &newVec)
     else
     {
         return false;
+    }
+}
+
+template <class T>
+void Vector<T>::GetArray(T *&newT) const
+{
+    newT = NULL;
+
+    if(m_arraySize != 0)
+    {
+        newT = new T[m_arraySize];
+
+        for(int i = 0; i < m_arrayLength; i++)
+        {
+            newT[i] = m_theArray[i];
+        }
     }
 }
 

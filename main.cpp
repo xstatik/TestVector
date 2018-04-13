@@ -1,4 +1,5 @@
 #include "Vector.h"
+#include "VectorUtils.h"
 #include <iostream>
 #include <string>
 
@@ -28,9 +29,9 @@ int main()
     Test06();
     Test07();
     Test08();
-//    Test09();
+    Test09();
     Test10();
-    Test11();
+//    Test11();
     Test12();
     Test13();
 
@@ -43,10 +44,10 @@ void Test01()//Test constructor intialises variables
 
     Vector<int> testVec;
 
-    testVec.print();
+    printIntVec(testVec);
 }
 
-void Test02()//Test set size
+void Test02()//Test SetSize
 {
     cout << "----------TEST02----------" << endl;
 
@@ -54,7 +55,7 @@ void Test02()//Test set size
 
     testVec.SetSize(10);
 
-    testVec.print();
+    printIntVec(testVec);
 }
 
 void Test03()//Test 0 with SetSize
@@ -68,7 +69,7 @@ void Test03()//Test 0 with SetSize
         cout << "Zero or less!!!" << endl;
     }
 
-    testVec.print();
+    printIntVec(testVec);
 }
 
 void Test04()//Test CopyVec
@@ -83,7 +84,7 @@ void Test04()//Test CopyVec
         cout << "Vector copied" << endl;
     }
 
-    testVec02.print();
+    printIntVec(testVec);
 }
 
 void Test05()//Test constructor with size parameter
@@ -92,7 +93,7 @@ void Test05()//Test constructor with size parameter
 
     Vector<int> testVec(11);
 
-    testVec.print();
+    printIntVec(testVec);
 }
 
 void Test06()//Test Copy constructor
@@ -102,7 +103,7 @@ void Test06()//Test Copy constructor
     Vector<int> testVec(17);
     Vector<int> testVec02(testVec);
 
-    testVec02.print();
+    printIntVec(testVec);
 }
 
 void Test07()//Test AddItem
@@ -116,7 +117,7 @@ void Test07()//Test AddItem
         testVec.AddItem(i);
     }
 
-    testVec.print();
+    printIntVec(testVec);
 }
 
 
@@ -136,23 +137,26 @@ void Test08()//Test overloaded operator []
         testVec[i] = i + 10;
     }
 
-    testVec.print();
+    printIntVec(testVec);
 }
-/*
-void Test09()//Test overloaded operator [] with const
+
+void Test09()//Test GetArray
 {
     cout << "----------TEST09----------" << endl;
 
     Vector<int> testVec(3);
+    int *testArr;
 
     for(int i = 0; i < 3; i++)
     {
-        cout << testVec[i];
+        testVec.AddItem(i);
     }
 
-    testVec.print();
+    testVec.GetArray(testArr);
+
+    printIntVec(testVec);
 }
-*/
+
 void Test10()//Test PushBack range
 {
     cout << "----------TEST10----------" << endl;
@@ -167,24 +171,23 @@ void Test10()//Test PushBack range
             cout << "Outside Range" << endl;
     }
 
-    testVec.print();
+    printIntVec(testVec);
 }
-
+/*
 void Test11()//Test GetItem
 {
     cout << "----------TEST11----------" << endl;
 
     Vector<int> testVec(3);
-    int x;
 
     for(int i = 0; i < 3; i++)
     {
         testVec.AddItem(i);
-        testVec.GetItem(x, i);
-        cout << x << endl;
     }
-}
 
+    printIntVec(testVec);
+}
+*/
 void Test12()//Test GetLength and GetSize
 {
     cout << "----------TEST12----------" << endl;
@@ -211,7 +214,6 @@ void Test13()//Test with String
     for(int i = 0; i < 3; i++)
     {
         testVec.AddItem(testString);
-        testVec.GetItem(emptyStr, i);
-        cout << emptyStr << i << endl;
+        cout << testVec[i] << i << endl;
     }
 }

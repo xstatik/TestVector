@@ -1,10 +1,15 @@
 # depslib dependency file v1.0
-1523645182 source:c:\codeblocks\#ict283\week06\week06\testvector\main.cpp
+1523651585 source:c:\codeblocks\#ict283\week06\week06\testvector\main.cpp
 	"Vector.h"
+	"VectorUtils.h"
 	<iostream>
 	<string>
 
-1523645475 c:\codeblocks\#ict283\week06\week06\testvector\vector.h
+1523651718 c:\codeblocks\#ict283\week06\week06\testvector\vector.h
 	<iostream>
 	<cassert>
+
+1523650044 c:\codeblocks\#ict283\week06\week06\testvector\vectorutils.h
+	"Vector.h"
+	<iostream>
 
