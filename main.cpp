@@ -18,6 +18,7 @@ void Test10();
 void Test11();
 void Test12();
 void Test13();
+void Test14();
 
 int main()
 {
@@ -34,6 +35,7 @@ int main()
 //    Test11();
     Test12();
     Test13();
+    Test14();
 
     return 0;
 }
@@ -100,7 +102,11 @@ void Test06()//Test Copy constructor
 {
     cout << "----------TEST06----------" << endl;
 
-    Vector<int> testVec(17);
+    Vector<int> testVec(3);
+
+    for(int i = 0; i < 3; i ++)
+        testVec.AddItem(i);
+
     Vector<int> testVec02(testVec);
 
     printIntVec(testVec);
@@ -216,4 +222,24 @@ void Test13()//Test with String
         testVec.AddItem(testString);
         cout << testVec[i] << i << endl;
     }
+}
+
+void Test14()//Test with String
+{
+    cout << "----------TEST14----------" << endl;
+
+    Vector<string> testVec(3);
+    Vector<string> testVec2;
+    string testString = "String 0";
+
+    for(int i = 0; i < 3; i++)
+    {
+        testString = testString + to_string(i);
+        testVec.AddItem(testString);
+        testString = "String 0";
+    }
+
+    testVec2 = testVec;
+
+    printIntVec(testVec2);
 }

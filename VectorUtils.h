@@ -3,9 +3,10 @@
 
 using namespace std;
 
-void printIntVec(Vector<int> &intArr)
+template <class T>
+void printIntVec(Vector<T> &intArr)
 {
-    int *ptr;
+    T *ptr;
 
     cout << "Length = " << intArr.GetLength() << endl;
     cout << "Size = " << intArr.GetSize() << endl;
@@ -29,3 +30,6 @@ void printIntVec(Vector<int> &intArr)
     }
 
 };
+
+
+

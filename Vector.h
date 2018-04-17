@@ -81,7 +81,11 @@ using namespace std;
 	 * @date 13/04/2018 Wade Davidson, added GetArray. Tested. Chaged test paln as VectorUtils.h was added.
 	 * @date 13/04/2018 Wade Davidson, print function removed.
 	 *
-	 * @todo Add overloaded = and maybe remove cassert.
+	 * @author Wade Davidson
+	 * @version 16
+	 * @date 17/04/2018 Wade Davidson, added overloaded +. Tested.
+	 *
+	 * @todo maybe remove cassert.
 	 *
 	 * @bug None yet...
 	 */
@@ -185,6 +189,17 @@ class Vector
             * @return T&
             */
         T& operator[](int index);
+            /**
+            * @brief  Overloaded = operator
+            *
+            * Assigns one Vector to another
+            *
+            * @param  coVec the Vector to be assigned
+            * @return Vector<T>&
+            */
+        const Vector<T>& operator=(Vector<T> &coVec);
+
+
 
     private:
             ///int to hold the size of the array.
@@ -334,6 +349,14 @@ T& Vector<T>::operator[](int index)
     assert(index >= 0 && index < m_arrayLength);
 
     return m_theArray[index];
+}
+
+template <class T>
+const Vector<T>& Vector<T>::operator=(Vector<T> &coVec)
+{
+    CopyVec(coVec);
+
+    return *this;
 }
 
 #endif // VECTOR_H
