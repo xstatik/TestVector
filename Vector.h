@@ -83,9 +83,13 @@ using namespace std;
 	 *
 	 * @author Wade Davidson
 	 * @version 16
-	 * @date 17/04/2018 Wade Davidson, added overloaded +. Tested.
+	 * @date 17/04/2018 Wade Davidson, added overloaded =. Tested.
 	 *
-	 * @todo maybe remove cassert.
+	 * @author Wade Davidson
+	 * @version 17
+	 * @date 18/04/2018 Wade Davidson, added SetArray and Resize. Tested.
+	 *
+	 * @todo work out array operators.
 	 *
 	 * @bug None yet...
 	 */
@@ -150,7 +154,23 @@ class Vector
             * @param  newT
             * @post a opy of the array is given
             */
-        void GetArray(T *&newT) const;
+        void GetArray(T *&newArr) const;
+            /**
+            * @brief  Copies an array to the Vector
+            *
+            * Deletes old array and adds the new one
+            *
+            * @param  newArr array to be copied
+            * @post the array is copied to the Vector.
+            */
+        bool SetArray(const T *newArr, int siz);
+            /**
+            * @brief  Resizes the Vector and keeps the elements
+            *
+            * @param  newSize the size you desire
+            * @post Vector is the same but bigger.
+            */
+        bool Resize(int newSize);
             /**
             * @brief  Adds element to end of Vector
             *
@@ -213,24 +233,19 @@ class Vector
 
 template <class T>
 Vector<T>::Vector()
-{
-    m_arraySize = 0;
-    m_arrayLength = 0;
-    m_theArray = NULL;
-}
+    : m_arraySize(0), m_arrayLength(0), m_theArray(NULL)
+{}
 
 template <class T>
 Vector<T>::Vector(const int arrSize)
+    : m_arraySize(0), m_arrayLength(0), m_theArray(NULL)
 {
-    m_arraySize = 0;
-    m_arrayLength = 0;
-    m_theArray = NULL;
-
     SetSize(arrSize);
 }
 
 template <class T>
 Vector<T>::Vector(Vector<T> &newVec)
+    : m_arraySize(0), m_arrayLength(0), m_theArray(NULL)
 {
     CopyVec(newVec);
 }
@@ -294,19 +309,40 @@ bool Vector<T>::CopyVec(Vector<T> &newVec)
 }
 
 template <class T>
-void Vector<T>::GetArray(T *&newT) const
+void Vector<T>::GetArray(T *&newArr) const
 {
-    newT = NULL;
+    newArr = NULL;
 
     if(m_arraySize != 0)
     {
-        newT = new T[m_arraySize];
+        newArr = new T[m_arraySize];
 
-        for(int i = 0; i < m_arrayLength; i++)
+        for(int i = 0; i < m_arraySize; i++)
         {
-            newT[i] = m_theArray[i];
+            newArr[i] = m_theArray[i];
         }
     }
+}
+
+template <class T>
+bool Vector<T>::SetArray(const T *newArr, int siz)
+{
+    if(m_arraySize < siz)
+    {
+        SetSize(siz);
+    }
+    else
+    {
+        for(int i = 0; i < siz; i++)
+        {
+            m_theArray[i] = newArr[i];
+            m_arrayLength++;
+        }
+
+        return true;
+    }
+
+    return false;
 }
 
 template <class T>
@@ -348,6 +384,9 @@ T& Vector<T>::operator[](int index)
 {
     assert(index >= 0 && index < m_arrayLength);
 
+    //if(index >= m_arraySize)
+      //  Resize(index + 1);
+
     return m_theArray[index];
 }
 
@@ -357,6 +396,26 @@ const Vector<T>& Vector<T>::operator=(Vector<T> &coVec)
     CopyVec(coVec);
 
     return *this;
+}
+
+template <class T>
+bool Vector<T>::Resize(int newSize)
+{
+    if(newSize > m_arraySize)
+    {
+        T *temp;
+        int tempSize = m_arraySize;
+
+        GetArray(temp);
+        SetSize(newSize);
+        SetArray(temp, tempSize);
+
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 #endif // VECTOR_H

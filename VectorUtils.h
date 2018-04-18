@@ -23,13 +23,12 @@ void printIntVec(Vector<T> &intArr)
 
     if(ptr != NULL)
     {
-        for(int i = 0; i < intArr.GetLength(); i++)
+        for(int i = 0; i < intArr.GetSize(); i++)
         {
             cout << "Element " << i << " is: " << ptr[i] << endl;
         }
     }
-
-};
+}
 
 
 

@@ -19,6 +19,8 @@ void Test11();
 void Test12();
 void Test13();
 void Test14();
+void Test15();
+void Test16();
 
 int main()
 {
@@ -32,10 +34,12 @@ int main()
     Test08();
     Test09();
     Test10();
-//    Test11();
+    Test11();//Test SetArray
     Test12();
     Test13();
     Test14();
+    Test15();
+    Test16();
 
     return 0;
 }
@@ -163,7 +167,7 @@ void Test09()//Test GetArray
     printIntVec(testVec);
 }
 
-void Test10()//Test PushBack range
+void Test10()//Test Additem range
 {
     cout << "----------TEST10----------" << endl;
 
@@ -179,21 +183,18 @@ void Test10()//Test PushBack range
 
     printIntVec(testVec);
 }
-/*
-void Test11()//Test GetItem
+
+void Test11()//Test SetArray
 {
     cout << "----------TEST11----------" << endl;
 
-    Vector<int> testVec(3);
+    Vector<string> testVec(3);
+    string strArr[] = {"Apples", "Oranges", "Pears"};
 
-    for(int i = 0; i < 3; i++)
-    {
-        testVec.AddItem(i);
-    }
-
-    printIntVec(testVec);
+    if(testVec.SetArray(strArr, 3))
+        printIntVec(testVec);
 }
-*/
+
 void Test12()//Test GetLength and GetSize
 {
     cout << "----------TEST12----------" << endl;
@@ -242,4 +243,38 @@ void Test14()//Test with String
     testVec2 = testVec;
 
     printIntVec(testVec2);
+}
+
+void Test15()//Test with String
+{
+    cout << "----------TEST15----------" << endl;
+
+    Vector<string> testVec(3);
+    string strArr[] = {"Wade", "Meli", "Me"};
+
+    if(testVec.SetArray(strArr, 3))
+        printIntVec(testVec);
+
+    if(!testVec.Resize(2))
+    {
+        cout << "Fail" << endl;
+    }
+
+    testVec.Resize(10);
+    printIntVec(testVec);
+}
+
+void Test16()//Test with String
+{
+    cout << "----------TEST16----------" << endl;
+
+    Vector<string> testVec(3);
+    string testString = "Choose";
+    string strArr[] = {"Wade", "Meli", "Me"};
+
+    testVec.SetArray(strArr, 3);
+
+    testString = testVec[2];
+
+    printIntVec(testVec);
 }
