@@ -89,7 +89,11 @@ using namespace std;
 	 * @version 17
 	 * @date 18/04/2018 Wade Davidson, added SetArray and Resize. Tested.
 	 *
-	 * @todo work out array operators.
+	 * @author Wade Davidson
+	 * @version 18
+	 * @date 23/04/2018 Wade Davidson, Cleaned it up a little. Added new test plan.
+	 *
+	 * @todo ...
 	 *
 	 * @bug None yet...
 	 */
@@ -130,7 +134,7 @@ class Vector
             /**
             * @brief  Sets the size of the Vector object
             *
-            *Creates a Vector object of the specified size
+            * Creates a Vector object of the specified size
             *
             * @param  arrSize size of Vector to be created.
             * @pre arrSize must be above zero otherwise an empty Vector is created
@@ -172,16 +176,6 @@ class Vector
             */
         bool Resize(int newSize);
             /**
-            * @brief  Adds element to end of Vector
-            *
-            * Adds an element to the Vector obeject and increases the size
-            *
-            * @param  newT element to be added.
-            * @pre The Vector must not be empty
-            * @post newT is added to the end of the Vector.
-            */
-        bool AddItem(const T &newT);
-            /**
             * @brief  Retrieves the size of the Vector.
             *
             * @return int
@@ -219,8 +213,6 @@ class Vector
             */
         const Vector<T>& operator=(Vector<T> &coVec);
 
-
-
     private:
             ///int to hold the size of the array.
         int m_arraySize;
@@ -228,7 +220,6 @@ class Vector
         int m_arrayLength;
             ///T pointer to hold the base address of the array.
         T *m_theArray;
-
 };
 
 template <class T>
@@ -278,7 +269,7 @@ bool Vector<T>::SetSize(int arrSize)
         m_theArray = new T[m_arraySize];
     }
 
-    if(m_theArray == NULL)
+    if(m_theArray == NULL)//Check for enough memory
     {
         return false;
     }
@@ -286,13 +277,12 @@ bool Vector<T>::SetSize(int arrSize)
     {
         return true;
     }
-
 }
 
 template <class T>
 bool Vector<T>::CopyVec(Vector<T> &newVec)
 {
-    if(SetSize(newVec.m_arraySize))
+    if(&newVec != this && SetSize(newVec.m_arraySize))
     {
         for(int i = 0; i < newVec.m_arrayLength; i++)
         {
@@ -313,11 +303,11 @@ void Vector<T>::GetArray(T *&newArr) const
 {
     newArr = NULL;
 
-    if(m_arraySize != 0)
+    if(m_arrayLength != 0)
     {
-        newArr = new T[m_arraySize];
+        newArr = new T[m_arrayLength];
 
-        for(int i = 0; i < m_arraySize; i++)
+        for(int i = 0; i < m_arrayLength; i++)
         {
             newArr[i] = m_theArray[i];
         }
@@ -327,36 +317,28 @@ void Vector<T>::GetArray(T *&newArr) const
 template <class T>
 bool Vector<T>::SetArray(const T *newArr, int siz)
 {
-    if(m_arraySize < siz)
+    if(m_arraySize >= siz)
     {
-        SetSize(siz);
+        for(int i = 0; i < siz; i++)
+            {
+                m_theArray[i] = newArr[i];
+                m_arrayLength++;
+            }
+        return true;
+    }
+    else if(SetSize(siz))
+    {
+        for(int i = 0; i < siz; i++)
+            {
+                m_theArray[i] = newArr[i];
+                m_arrayLength++;
+            }
+        return true;
     }
     else
     {
-        for(int i = 0; i < siz; i++)
-        {
-            m_theArray[i] = newArr[i];
-            m_arrayLength++;
-        }
-
-        return true;
+        return false;
     }
-
-    return false;
-}
-
-template <class T>
-bool Vector<T>::AddItem(const T &newT)
-{
-    if(m_arrayLength < m_arraySize && m_theArray != NULL)
-    {
-        m_theArray[m_arrayLength] = newT;
-        m_arrayLength++;
-
-        return true;
-    }
-
-    return false;
 }
 
 template <class T>
@@ -374,7 +356,7 @@ int Vector<T>::GetLength() const
 template <class T>
 const T& Vector<T>::operator[](int index) const
 {
-    assert(index >= 0 && index < m_arrayLength);
+    assert(index >= 0 && index < m_arraySize);
 
     return m_theArray[index];
 }
@@ -382,10 +364,15 @@ const T& Vector<T>::operator[](int index) const
 template <class T>
 T& Vector<T>::operator[](int index)
 {
-    assert(index >= 0 && index < m_arrayLength);
+    assert(index >= 0);
 
-    //if(index >= m_arraySize)
-      //  Resize(index + 1);
+    while(index > m_arraySize)
+    {
+        Resize((2 * m_arraySize));
+    }
+
+    if(index >= m_arrayLength)
+            m_arrayLength = index + 1;
 
     return m_theArray[index];
 }
@@ -404,11 +391,11 @@ bool Vector<T>::Resize(int newSize)
     if(newSize > m_arraySize)
     {
         T *temp;
-        int tempSize = m_arraySize;
+        int tempLength = m_arrayLength;
 
         GetArray(temp);
         SetSize(newSize);
-        SetArray(temp, tempSize);
+        SetArray(temp, tempLength);
 
         return true;
     }

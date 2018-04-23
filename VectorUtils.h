@@ -4,7 +4,7 @@
 using namespace std;
 
 template <class T>
-void printIntVec(Vector<T> &intArr)
+void printIntVec(const Vector<T> &intArr)
 {
     T *ptr;
 
@@ -23,7 +23,7 @@ void printIntVec(Vector<T> &intArr)
 
     if(ptr != NULL)
     {
-        for(int i = 0; i < intArr.GetSize(); i++)
+        for(int i = 0; i < intArr.GetLength(); i++)
         {
             cout << "Element " << i << " is: " << ptr[i] << endl;
         }
