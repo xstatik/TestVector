@@ -32,6 +32,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Date.cpp" />
+		<Unit filename="Date.h" />
 		<Unit filename="Vector.h" />
 		<Unit filename="VectorUtils.h" />
 		<Unit filename="main.cpp" />
